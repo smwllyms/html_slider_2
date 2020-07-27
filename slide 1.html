@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide 1</title>
+    <style>
+        body {
+            padding:0;
+            margin: 0;
+        }
+        #frame {
+            position: absolute;
+            width: 100%;
+            height: 600px;
+            display: block;
+            overflow: hidden;
+            background-color: hotpink;
+            background-size: 1000px;
+        }
+        #content {
+            display: flex;
+            justify-content: top;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            flex-direction: column;
+            height: 100%;
+        }
+        .content {
+            padding-top: 30px;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="frame">
+        <div id="content">
+            <h2 id="head" class="content">
+                Hello this is heading
+            </h2>
+            <div id="pic" class="content">
+                <iframe width="640" height="360" src="https://www.youtube.com/embed/r1CMLFnHt0Q" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div id="caption" class="content">
+                This is a youtube video. It talks about KD and basketball stats. 
+            </div>
+        </div>
+    </div>
+</body>
+</html>

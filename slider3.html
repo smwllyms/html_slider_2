@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        #container {
+            height: 600px;
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 0;
+            padding:0;
+            width: 100%;
+            font-size: 0;
+        }
+        #pseudo_container {
+            position: relative;
+            width: 100%;
+            display: block;
+            height: 100%;
+            white-space: nowrap;
+            margin: 0;
+            padding:0;
+            left:-100%;
+            font-size: 0;
+        }
+        .slide {
+            left: auto;
+            position: relative;
+            display: inline-block;
+            margin: 0;
+            padding:0;
+            border: 0;
+        }
+        .scoot_left {
+            animation-name: scootLeft;
+            animation-duration:1s;
+            animation-iteration-count: 1;
+            animation-play-state: paused;
+        }
+        .scoot_right {
+            animation-name: scootRight;
+            animation-duration:1s;
+            animation-iteration-count: 1;
+            animation-play-state: paused;
+        }
+        @keyframes scootLeft {
+            from {
+                left:-100%;
+            }
+            to {
+                left:0;
+            }
+        }
+        @keyframes scootRight {
+            from {
+                left:-100%;
+            }
+            to {
+                left:-200%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="pseudo_container">
+
+        </div>
+    </div>
+    <div id="buttons" style="position: absolute;">
+        <button onclick="scoot('l')">Scoot Left</button><button onclick="scoot('r')">Scoot Right</button>
+    </div>
+</body>
+<script>
+    container = document.getElementById("container");
+    pseudo_c = document.getElementById("pseudo_container");
+    slides = [];
+    time = 1.5;
+    htmlfiles = false;
+    if (htmlfiles) {
+    	slides.push("slide%201.html");
+    	slides.push("slide%202.html");
+    	pseudo_c.insertAdjacentHTML("beforeend", "<iframe src='./" + slides[slides.length - 1] + "' width='100%' class='slide' height='100%'/>");
+    	for (i = 0; i < slides.length; i++) {
+        	pseudo_c.insertAdjacentHTML("beforeend", "<iframe src='./" + slides[i] + "' width='100%' class='slide' height='100%'/>");
+    	}
+    } else {
+        doc1 = '\
+        <!DOCTYPE html>\
+        <html lang="en">\
+<head>\
+    <meta charset="UTF-8">\
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\
+    <title>Slide 1</title>\
+    <style>\
+        body {\
+            padding:0;\
+            margin: 0;\
+        }\
+        #frame {\
+            position: absolute;\
+            width: 100%;\
+            height: 600px;\
+            display: block;\
+            overflow: hidden;\
+            background-color: hotpink;\
+            background-size: 1000px;\
+        }\
+        #content {\
+            display: flex;\
+            justify-content: top;\
+            align-items: center;\
+            text-align: center;\
+            width: 100%;\
+            flex-direction: column;\
+            height: 100%;\
+        }\
+        .content {\
+            padding-top: 30px;\
+            margin: 0;\
+        }\
+    </style>\
+</head>\
+<body>\
+    <div id="frame">\
+        <div id="content">\
+            <h2 id="head" class="content">\
+                Hello this is heading\
+            </h2>\
+            <div id="pic" class="content">\
+                <iframe width="640" height="360" src="https://www.youtube.com/embed/r1CMLFnHt0Q" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>\
+            </div>\
+            <div id="caption" class="content">\
+                This is a youtube video. It talks about KD and basketball stats. \
+            </div>\
+        </div>\
+    </div>\
+</body>\
+</html>\
+</div>\
+        ';
+doc2 = '\
+<!DOCTYPE html>\
+<html lang="en">\
+<head>\
+    <meta charset="UTF-8">\
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\
+    <title>Slide 2</title>\
+    <style>\
+        body {\
+            padding:0;\
+            margin: 0;\
+        }\
+        #frame {\
+            position: absolute;\
+            width: 100%;\
+            height: 600px;\
+            display: block;\
+            overflow: hidden;\
+            background-color: indianred;\
+            background-size: 1000px;\
+        }\
+        #content {\
+            display: flex;\
+            justify-content: top;\
+            align-items: center;\
+            text-align: center;\
+            width: 100%;\
+            flex-direction: column;\
+            height: 100%;\
+        }\
+        .content {\
+            padding-top: 30px;\
+            margin: 0;\
+        }\
+    </style>\
+</head>\
+<body>\
+    <div id="frame">\
+        <div id="content">\
+            <h2 id="head" class="content">\
+                Wow look at me\
+            </h2>\
+            <div id="pic" class="content">\
+                <iframe width="640" height="360" src="https://www.youtube.com/embed/oeqPrUmVz-o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>\
+            </div>\
+            <div id="caption" class="content">\
+                Another insightful youtube video, this time discussing Steve Jobs, the founder of Apple...\
+            </div>\
+        </div>\
+    </div>\
+</body>\
+</html></div>\
+';
+    	slides.push(`\
+                    <iframe srcdoc='`+doc1+`'width='100%' class='slide' height='100%'>\
+                    `);
+      	slides.push(`<iframe srcdoc='`+doc2+`' width='100%' class='slide' height='100%'>\
+                    `);
+        pseudo_c.insertAdjacentHTML("beforeend", slides[slides.length - 1]);
+    	for (i = 0; i < slides.length; i++) {
+        	pseudo_c.insertAdjacentHTML("beforeend", slides[i]);
+    	}
+    }
+    slides = pseudo_c.getElementsByClassName("slide");
+
+    function scoot(dir) {
+        where = "";
+        slide = null;
+        anim = "";
+        if (dir === "r") {
+            anim = "scoot_right";
+        } else {
+            anim = "scoot_left";
+        }
+        pseudo_c.classList.add(anim);
+        pseudo_c.style.animationDuration = time.toString() + "s";
+        pseudo_c.style.animationPlayState = "running";
+        setTimeout(function () {
+            if (dir === "r") {
+                tmp = slides[1].cloneNode(true);
+                pseudo_c.removeChild(slides[0]);
+                pseudo_c.insertAdjacentHTML("beforeend", tmp.outerHTML);
+                pseudo_c.classList.remove(anim);
+            } else {
+                tmp = slides[1].cloneNode(true);
+                pseudo_c.removeChild(slides[2]);
+                pseudo_c.insertAdjacentHTML("afterbegin", tmp.outerHTML);
+                pseudo_c.classList.remove(anim);
+            }
+            slides = pseudo_c.getElementsByClassName("slide");
+            
+        },
+            time * 980);
+    }
+
+
+</script>
+</html>
